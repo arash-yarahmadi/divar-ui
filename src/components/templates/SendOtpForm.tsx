@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
+import { sendOtp } from "../../services/auth";
 
 type SendOtpFormProps = {
   setStep: React.Dispatch<React.SetStateAction<number>>;
@@ -7,10 +9,11 @@ type SendOtpFormProps = {
 };
 
 function SendOtpForm({ setStep, mobile, setMobile }: SendOtpFormProps) {
-  function submitHandler(event: React.FormEvent<HTMLFormElement>) {
+  const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(event);
-  }
+    const { response, error } = await sendOtp(mobile);
+    console.log("arash", response, error);
+  };
 
   return (
     <form onSubmit={submitHandler}>
