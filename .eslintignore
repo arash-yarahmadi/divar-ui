@@ -1,0 +1,12 @@
+node_modules/
+dist/
+build/
+coverage/
+.vite/
+.vscode/
+.env
+.env.*
+*.config.js
+*.config.cjs
+vite.config.ts
+tsconfig*.json
