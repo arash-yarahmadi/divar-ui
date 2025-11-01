@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
-import { sendOtp } from "../../services/auth";
+import { sendOtp } from "services/auth";
+import toast from "react-hot-toast";
 
 type SendOtpFormProps = {
   setStep: React.Dispatch<React.SetStateAction<number>>;
@@ -9,10 +10,30 @@ type SendOtpFormProps = {
 };
 
 function SendOtpForm({ setStep, mobile, setMobile }: SendOtpFormProps) {
+
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const { response, error } = await sendOtp(mobile);
-    console.log("arash", response, error);
+    if(mobile.length !== 11) return;
+    
+     try {
+      const { response, error } = await sendOtp(mobile);
+
+      if (response) {
+        setStep(2);
+        toast.success(response.message);
+      }
+
+      if (error) {
+        const message =
+          error.response?.data?.message || "خطایی رخ داده است، دوباره تلاش کنید.";
+        toast.error(message);
+      }
+    } catch (err: any) {
+      
+      const message =
+        err.response?.data?.message || "مشکلی در ارسال درخواست وجود دارد.";
+      toast.error(message);
+    }
   };
 
   return (
