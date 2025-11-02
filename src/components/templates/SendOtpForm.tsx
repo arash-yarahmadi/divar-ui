@@ -2,6 +2,7 @@
 import React from "react";
 import { sendOtp } from "services/auth";
 import toast from "react-hot-toast";
+import styles from "./SendOtpForm.module.css";
 
 type SendOtpFormProps = {
   setStep: React.Dispatch<React.SetStateAction<number>>;
@@ -37,7 +38,7 @@ function SendOtpForm({ setStep, mobile, setMobile }: SendOtpFormProps) {
   };
 
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={submitHandler} className={styles.form}>
       <p>ورود به حساب کاربری</p>
       <span>
         برای استفاده از امکانات دیوار، لطفا شماره موبایل خود را وارد بکنید. کد
@@ -53,7 +54,7 @@ function SendOtpForm({ setStep, mobile, setMobile }: SendOtpFormProps) {
           setMobile(e.target.value)
         }
       />
-      <button type="submit">ارسال</button>
+      <button type="submit">ارسال کد تایید</button>
     </form>
   );
 }
