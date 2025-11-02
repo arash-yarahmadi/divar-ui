@@ -22,10 +22,8 @@ function CheckOtpForm({ setStep, mobile, code, setCode }: CheckOtpFormProps) {
       const { response, error } = await checkOtp(mobile, code);
 
       if (response) {
-        console.log("arash2", response)
         SetCookie(response)
         //setStep(2);
-        //toast.success(response.message);
       }
 
       if (error) {

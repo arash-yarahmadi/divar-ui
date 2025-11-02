@@ -4,8 +4,19 @@ import DashboardPage from "pages/DashboardPage";
 import AdminPage from "pages/AdminPage";
 import PageNotFound from "pages/404";
 import AuthPage from "pages/AuthPage";
+import { useQuery } from "@tanstack/react-query";
+import { getProfile } from "src/services/user";
 
 function Router() {
+  const { data, isPending, error } = useQuery({
+    queryKey: ["profile"],
+    queryFn: getProfile,
+  });
+
+  console.log("ali", data, isPending, error);
+
+  if (isPending) return <h1>Loading ...</h1>;
+
   return (
     <Routes>
       <Route index element={<HomePage />} />
