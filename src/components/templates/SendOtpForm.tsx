@@ -2,7 +2,6 @@
 import React from "react";
 import { sendOtp } from "services/auth";
 import toast from "react-hot-toast";
-import styles from "./SendOtpForm.module.css";
 
 type SendOtpFormProps = {
   setStep: React.Dispatch<React.SetStateAction<number>>;
