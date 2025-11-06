@@ -1,9 +1,24 @@
 import api from "config/api";
 
-interface SendOtpResponse {
-  success: boolean;
+export type SendOtpResponse = {
   message: string;
-}
+  code?: {
+    _id?: string;
+    mobile?: string;
+    otp?: {
+      code?: string;
+      expiresIn?: number;
+      _id?: string;
+    };
+    verifiedMobile?: boolean;
+    role?: string;
+    createdAt?: string;
+    updatedAt?: string;
+    __v?: number;
+    accessToken?: string;
+    refreshToken?: string;
+  };
+};
 
 interface CheckOtpResponse {
   message: string;

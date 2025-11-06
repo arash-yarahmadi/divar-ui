@@ -1,10 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react'
+import AddPost from "components/templates/AddPost";
 
 function DashboardPage() {
   return (
-    <div>DashboardPage</div>
-  )
+    <div>
+      <AddPost />
+    </div>
+  );
 }
 
-export default DashboardPage
+export default DashboardPage;
