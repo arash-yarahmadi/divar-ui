@@ -6,7 +6,6 @@ import { SetCookie } from "utils/cookie";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getProfile } from "services/user";
-import styles from "./CheckOtpForm.module.css";
 
 type CheckOtpFormProps = {
   setStep: React.Dispatch<React.SetStateAction<number>>;

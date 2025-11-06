@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { getCategory } from "services/admin";
-import styles from "./AddPost.module.css";
 
 interface PostData {
   name: string;
