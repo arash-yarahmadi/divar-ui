@@ -57,23 +57,61 @@ function AddPost() {
   };
 
   return (
-    <form onChange={changeHandler} className={styles.form}>
-      <h3>افزودن آگهی</h3>
+    <form
+      onChange={changeHandler}
+      className="border border-gray-400 p-6 w-[400px] bg-cyan-400 rounded-2xl"
+    >
+      <h3 className="mb-7 border-b-4 border-[#a62626] w-fit pb-1 text-lg font-semibold">
+        افزودن آگهی
+      </h3>
 
-      <label htmlFor="title">عنوان</label>
-      <input type="text" name="title" id="title" />
+      <label className="block text-sm mb-2" htmlFor="title">
+        عنوان
+      </label>
+      <input
+        className="block w-[300px] p-1 border border-gray-400 mb-7 rounded"
+        type="text"
+        name="title"
+        id="title"
+      />
 
-      <label htmlFor="content">توضیحات</label>
-      <textarea name="content" id="content" />
+      <label className="block text-sm mb-2" htmlFor="content">
+        توضیحات
+      </label>
+      <textarea
+        className="block w-[300px] h-[100px] p-1 border border-gray-400 mb-7 rounded"
+        name="content"
+        id="content"
+      />
 
-      <label htmlFor="amount">قیمت</label>
-      <input type="text" name="amount" id="amount" />
+      <label className="block text-sm mb-2" htmlFor="amount">
+        قیمت
+      </label>
+      <input
+        className="block w-[300px] p-1 border border-gray-400 mb-7 rounded"
+        type="text"
+        name="amount"
+        id="amount"
+      />
 
-      <label htmlFor="city">شهر</label>
-      <input type="text" name="city" id="city" />
+      <label className="block text-sm mb-2" htmlFor="city">
+        شهر
+      </label>
+      <input
+        className="block w-[300px] p-1 border border-gray-400 mb-7 rounded"
+        type="text"
+        name="city"
+        id="city"
+      />
 
-      <label htmlFor="category">دسته‌بندی</label>
-      <select name="category" id="category">
+      <label className="block text-sm mb-2" htmlFor="category">
+        دسته‌بندی
+      </label>
+      <select
+        className="block w-[300px] p-1 border border-gray-400 mb-7 rounded"
+        name="category"
+        id="category"
+      >
         {data?.data.map((item: PostData) => (
           <option key={item._id} value={item._id}>
             {item.name}
@@ -81,10 +119,22 @@ function AddPost() {
         ))}
       </select>
 
-      <label htmlFor="image">عکس</label>
-      <input type="file" name="image" id="image" />
+      <label className="block text-sm mb-2" htmlFor="image">
+        عکس
+      </label>
+      <input
+        className="block w-[300px] p-1 border border-gray-400 mb-7 rounded"
+        type="file"
+        name="image"
+        id="image"
+      />
 
-      <button onClick={addHandler}>ارسال</button>
+      <button
+        className="bg-[#a62626] text-white border-none py-2 px-6 text-sm cursor-pointer rounded hover:bg-[#8f1f1f] transition"
+        onClick={addHandler}
+      >
+        ارسال
+      </button>
     </form>
   );
 }

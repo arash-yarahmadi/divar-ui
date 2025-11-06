@@ -23,7 +23,8 @@ function CategoryForm() {
   const queryClient = useQueryClient();
 
   const changeHandler = (event: React.FormEvent<HTMLFormElement>) => {
-    setForm({ ...form, [event.target.name]: event.target.value });
+    const target = event.target as HTMLInputElement;
+    setForm({ ...form, [target.name]: target.value });
   };
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
@@ -40,18 +41,53 @@ function CategoryForm() {
     <form
       onChange={changeHandler}
       onSubmit={submitHandler}
-      className={styles.form}
+      className="border border-gray-400 p-6 w-[400px] bg-cyan-400 rounded-2xl"
     >
-      <h3>دسته بندی جدید</h3>
-      {!!error && <p>خطا</p>}
-      {data?.status === 201 && <p>دسته بندی با موفقیت اضافه شد.</p>}
-      <label htmlFor="name">اسم دسته بندی</label>
-      <input type="text" name="name" id="name" />
-      <label htmlFor="slug">اسلاگ</label>
-      <input type="text" name="slug" id="slug" />
-      <label htmlFor="icon">آیکون</label>
-      <input type="text" name="icon" id="icon" />
-      <button type="submit" disabled={isPending}>
+      <h3 className="mb-7 border-b-4 border-[#a62626] w-fit pb-1 text-lg font-semibold">
+        دسته بندی جدید
+      </h3>
+      {!!error && (
+        <p className="bg-[#a62626] text-center mb-5 text-white p-1.5 rounded">
+          خطا
+        </p>
+      )}
+      {data?.status === 201 && (
+        <p className="bg-[#a62626] text-center mb-5 text-white p-1.5 rounded">
+          دسته بندی با موفقیت اضافه شد.
+        </p>
+      )}
+      <label className="block text-sm mb-2" htmlFor="name">
+        اسم دسته بندی
+      </label>
+      <input
+        className="flex w-[300px] p-1.5 border border-gray-400 mb-7 rounded"
+        type="text"
+        name="name"
+        id="name"
+      />
+      <label className="block text-sm mb-2" htmlFor="slug">
+        اسلاگ
+      </label>
+      <input
+        className="flex w-[300px] p-1.5 border border-gray-400 mb-7 rounded"
+        type="text"
+        name="slug"
+        id="slug"
+      />
+      <label className="block text-sm mb-2" htmlFor="icon">
+        آیکون
+      </label>
+      <input
+        className="flex w-[300px] p-1.5 border border-gray-400 mb-7 rounded"
+        type="text"
+        name="icon"
+        id="icon"
+      />
+      <button
+        className="bg-[#a62626] text-white py-2 px-6 text-sm rounded cursor-pointer disabled:opacity-50 hover:bg-[#8f1f1f] transition"
+        type="submit"
+        disabled={isPending}
+      >
         ایجاد
       </button>
     </form>
