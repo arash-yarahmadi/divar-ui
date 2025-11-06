@@ -37,14 +37,20 @@ function SendOtpForm({ setStep, mobile, setMobile }: SendOtpFormProps) {
   };
 
   return (
-    <form onSubmit={submitHandler} className={styles.form}>
-      <p>ورود به حساب کاربری</p>
-      <span>
+    <form
+      className="max-w-md mx-auto flex flex-col mt-24 border border-gray-300 rounded-md p-8"
+      onSubmit={submitHandler}
+    >
+      <p className="text-lg font-normal mb-5">ورود به حساب کاربری</p>
+      <span className="text-gray-500 text-sm mb-5 leading-6">
         برای استفاده از امکانات دیوار، لطفا شماره موبایل خود را وارد بکنید. کد
         تایید به این شماره پیامک خواهد شد
       </span>
-      <label htmlFor="input">شماره موبایل خود را وارد بکنید</label>
+      <label className="mb-2 text-sm font-medium text-gray-700" htmlFor="input">
+        شماره موبایل خود را وارد بکنید
+      </label>
       <input
+        className="my-2 mb-5 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
         type="text"
         id="input"
         placeholder="شماره موبایل"
@@ -53,7 +59,12 @@ function SendOtpForm({ setStep, mobile, setMobile }: SendOtpFormProps) {
           setMobile(e.target.value)
         }
       />
-      <button type="submit">ارسال کد تایید</button>
+      <button
+        className="w-[120px] px-3 py-1.5 bg-[#a62626] text-white rounded-md hover:bg-[#8f1f1f] transition-colors duration-200"
+        type="submit"
+      >
+        ارسال کد تایید
+      </button>
     </form>
   );
 }

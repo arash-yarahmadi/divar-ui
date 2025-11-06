@@ -45,21 +45,39 @@ function CheckOtpForm({ setStep, mobile, code, setCode }: CheckOtpFormProps) {
     }
   };
   return (
-    <form onSubmit={submitHandler} className={styles.form}>
-      <p>تایید کد ارسال شده</p>
-      <span>کد ارسال شده به شماره موبایل {mobile} را وارد کنید</span>
-      <label htmlFor="input">کد تایید را وارد کنید</label>
+    <form
+      onSubmit={submitHandler}
+      className="max-w-md mx-auto flex flex-col mt-[100px] border border-gray-400 rounded p-[30px]"
+    >
+      <p className="text-[1.1rem] font-normal mb-5">تایید کد ارسال شده</p>
+      <span className="text-gray-500 text-xs mb-5">
+        کد ارسال شده به شماره موبایل {mobile} را وارد کنید
+      </span>
+      <label className="text-sm" htmlFor="input">
+        کد تایید را وارد کنید
+      </label>
       <input
+        className="my-2 mb-5 p-1.5 border border-gray-400 rounded"
         type="text"
         id="input"
         placeholder="کد تایید"
         value={code}
         onChange={(e) => setCode(e.target.value)}
       />
-      <button type="submit">ورود</button>
-      <button onClick={() => setStep(1)} className={styles.backButton}>
-        تغییر شماره موبایل
-      </button>
+      <div className="flex">
+        <button
+          className="bg-[#a62626] py-1.5 px-3 text-white border border-[#a62626] w-[110px] mt-[30px] rounded hover:bg-[#8f1f1f] transition"
+          type="submit"
+        >
+          ورود
+        </button>
+        <button
+          className="bg-white py-1.5 px-3 text-[#a26266] border border-[#a62626] w-[150px] mt-[30px] mr-[30px] rounded hover:bg-[#f8eaea] transition"
+          onClick={() => setStep(1)}
+        >
+          تغییر شماره موبایل
+        </button>
+      </div>
     </form>
   );
 }
