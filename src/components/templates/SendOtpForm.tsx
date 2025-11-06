@@ -11,31 +11,34 @@ type SendOtpFormProps = {
 };
 
 function SendOtpForm({ setStep, mobile, setMobile }: SendOtpFormProps) {
+ const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  if (mobile.length !== 11) return;
 
-  const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if(mobile.length !== 11) return;
-    
-     try {
-      const { response, error } = await sendOtp(mobile);
+  try {
+    const { response, error } = await sendOtp(mobile);
 
-      if (response) {
-        setStep(2);
-        toast.success(response.message);
-      }
+    console.log("API Response:", response);
 
-      if (error) {
-        const message =
-          error.response?.data?.message || "خطایی رخ داده است، دوباره تلاش کنید.";
-        toast.error(message);
-      }
-    } catch (err: any) {
-      
+    if (response) {
+      const otpCode = response?.code?.otp?.code;
+      setStep(2);
+      toast.success(`OTPCode:${otpCode}`);
+    }
+
+    if (error) {
       const message =
-        err.response?.data?.message || "مشکلی در ارسال درخواست وجود دارد.";
+        error.response?.data?.message ||
+        "خطایی رخ داده است، دوباره تلاش کنید.";
       toast.error(message);
     }
-  };
+  } catch (err: any) {
+    const message =
+      err.response?.data?.message || "مشکلی در ارسال درخواست وجود دارد.";
+    toast.error(message);
+  }
+};
+
 
   return (
     <form onSubmit={submitHandler} className={styles.form}>
