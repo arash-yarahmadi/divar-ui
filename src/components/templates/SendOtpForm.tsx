@@ -2,12 +2,13 @@
 import React from "react";
 import { sendOtp } from "services/auth";
 import toast from "react-hot-toast";
+import { p2e } from "utils/numbers";
 
-type SendOtpFormProps = {
+interface SendOtpFormProps {
   setStep: React.Dispatch<React.SetStateAction<number>>;
   mobile: string;
   setMobile: React.Dispatch<React.SetStateAction<string>>;
-};
+}
 
 function SendOtpForm({ setStep, mobile, setMobile }: SendOtpFormProps) {
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -15,7 +16,7 @@ function SendOtpForm({ setStep, mobile, setMobile }: SendOtpFormProps) {
     if (mobile.length !== 11) return;
 
     try {
-      const { response, error } = await sendOtp(mobile);
+      const { response, error } = await sendOtp(p2e(mobile));
       if (response) {
         const otpCode = response?.code?.otp?.code;
         setStep(2);

@@ -9,4 +9,6 @@ const getProfile = async () => {
   }
 };
 
-export { getProfile };
+const getPosts = () => api.get("post/my");
+
+export { getProfile, getPosts };

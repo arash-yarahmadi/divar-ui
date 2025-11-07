@@ -6,6 +6,7 @@ import { SetCookie } from "utils/cookie";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getProfile } from "services/user";
+import { p2e } from "utils/numbers";
 
 type CheckOtpFormProps = {
   setStep: React.Dispatch<React.SetStateAction<number>>;
@@ -23,7 +24,7 @@ function CheckOtpForm({ setStep, mobile, code, setCode }: CheckOtpFormProps) {
     if (code.length !== 5) return;
 
     try {
-      const { response, error } = await checkOtp(mobile, code);
+      const { response, error } = await checkOtp(p2e(mobile), p2e(code));
 
       if (response) {
         SetCookie(response);
