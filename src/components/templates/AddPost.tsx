@@ -1,6 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { getCategory } from "services/admin";
+import { getCookie } from "utils/cookie";
 
 interface PostData {
   name: string;
@@ -16,7 +19,7 @@ interface FormState {
   city: string;
   category: string;
   amount: string | null;
-  image: File | null;
+  images: File | null;
 }
 
 function AddPost() {
@@ -26,7 +29,7 @@ function AddPost() {
     city: "",
     category: "",
     amount: null,
-    image: null,
+    images: null,
   });
 
   const { data } = useQuery({
@@ -34,16 +37,37 @@ function AddPost() {
     queryFn: getCategory,
   });
 
-  const addHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const addHandler = (event: any) => {
     event.preventDefault();
-    console.log(form);
+    const formData = new FormData();
+    for (const key in form) {
+      const field = key as keyof FormState;
+      const value = form[field];
+      console.log("form before submit:", form);
+      if (value !== null) {
+        formData.append(field, value);
+      }
+    }
+
+    const token = getCookie("accessToken");
+
+    axios
+      .post(`${import.meta.env.VITE_BASE_URL}post/create`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => toast.success(res.data.message))
+      .catch(() => toast.error("مشکلی پیش آمده است."));
   };
 
-  const changeHandler = (event: React.FormEvent<HTMLFormElement>) => {
-    const target = event.target as
-      | HTMLInputElement
-      | HTMLTextAreaElement
-      | HTMLSelectElement;
+  const changeHandler = (
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const target = event.target;
 
     if (!target.name) return;
 
@@ -56,10 +80,7 @@ function AddPost() {
   };
 
   return (
-    <form
-      onChange={changeHandler}
-      className="border border-gray-400 p-6 w-[400px] bg-cyan-400 rounded-2xl"
-    >
+    <form className="border border-gray-400 p-6 w-[400px] bg-cyan-400 rounded-2xl">
       <h3 className="mb-7 border-b-4 border-[#a62626] w-fit pb-1 text-lg font-semibold">
         افزودن آگهی
       </h3>
@@ -68,6 +89,7 @@ function AddPost() {
         عنوان
       </label>
       <input
+        onChange={changeHandler}
         className="block w-[300px] p-1 border border-gray-400 mb-7 rounded"
         type="text"
         name="title"
@@ -78,6 +100,7 @@ function AddPost() {
         توضیحات
       </label>
       <textarea
+        onChange={changeHandler}
         className="block w-[300px] h-[100px] p-1 border border-gray-400 mb-7 rounded"
         name="content"
         id="content"
@@ -87,8 +110,9 @@ function AddPost() {
         قیمت
       </label>
       <input
+        onChange={changeHandler}
         className="block w-[300px] p-1 border border-gray-400 mb-7 rounded"
-        type="text"
+        type="number"
         name="amount"
         id="amount"
       />
@@ -97,6 +121,7 @@ function AddPost() {
         شهر
       </label>
       <input
+        onChange={changeHandler}
         className="block w-[300px] p-1 border border-gray-400 mb-7 rounded"
         type="text"
         name="city"
@@ -107,6 +132,7 @@ function AddPost() {
         دسته‌بندی
       </label>
       <select
+        onChange={changeHandler}
         className="block w-[300px] p-1 border border-gray-400 mb-7 rounded"
         name="category"
         id="category"
@@ -118,14 +144,15 @@ function AddPost() {
         ))}
       </select>
 
-      <label className="block text-sm mb-2" htmlFor="image">
+      <label className="block text-sm mb-2" htmlFor="images">
         عکس
       </label>
       <input
+        onChange={changeHandler}
         className="block w-[300px] p-1 border border-gray-400 mb-7 rounded"
         type="file"
-        name="image"
-        id="image"
+        name="images"
+        id="images"
       />
 
       <button
